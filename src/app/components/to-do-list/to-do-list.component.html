@@ -15,7 +15,7 @@
             <mat-card-title>
                 
                 <button
-                    (click)="post(todolistInput.value+userName.value)"
+                    (click)="post(todolistInput.value+ space.value+ userName.value)"
                     mat-fab
                     color="primary"
                     style="float: right;"
@@ -29,7 +29,7 @@
             {{message$ | async}}
                 <button
                     (click)="translate(' Meeting')"
-                    (click)="SinhalaMessage()"
+                    (click)="SinhalaMessage()"                  
                     mat-fab
                     color="accent"
                     style="float: right;"
@@ -44,6 +44,8 @@
         <mat-label>ToDo Items</mat-label>
         <input #todolistInput matInput placeholder="Ex. Interview"/>
         <input hidden #userName matInput value = {{userNamex}} />
+        <input hidden #space matInput value = {{spacex}} />
+        <input hidden #traslate matInput value = "language Translated" />
     </mat-form-field>
 
     

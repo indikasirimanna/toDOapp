@@ -26,17 +26,25 @@ export class ToDoListCrudService {
   }
 
   constructor(private errorHandkerService:ErrorHandlerService, private http: HttpClient) { }
-
-  fetchAll(): Observable<ToDoList[]>{
+  //userNamex = localStorage.getItem('userName'); 
+  fetchAll(userNamex): Observable<ToDoList[]>{
     return this.http
     .get<ToDoList[]>(this.url,{responseType : "json"})
     .pipe(
       tap((_) => console.log('Fetched ToDoList')),
       catchError(
-        this.errorHandkerService.handleError<ToDoList[]>("fetchAll",[])
+        this.errorHandkerService.handleError<ToDoList[]>("fetchAll()",[])
       )
     );
   }
+
+ postTraslate(item : Partial<ToDoList>): Observable<any>{
+  return this.http.post<Partial<ToDoList>>(this.url, item, this.httpOptions).pipe(
+    catchError(
+      this.errorHandkerService.handleError<any>("post")
+    )
+  );
+}
 
 post(item : Partial<ToDoList>): Observable<any>{
   return this.http.post<Partial<ToDoList>>(this.url, item, this.httpOptions).pipe(

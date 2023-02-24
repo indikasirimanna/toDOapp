@@ -30,7 +30,7 @@ export class ToDoListComponent {
   message$ : Observable<string>;
 
   userNamex = localStorage.getItem('userName'); 
-
+  spacex=" - ";
 
  
 
@@ -48,6 +48,7 @@ export class ToDoListComponent {
 
   }
   SinhalaMessage(){
+    
     this.store.dispatch({type : 'SINHALA'})
   }
   frenchMessage(){
@@ -70,11 +71,16 @@ export class ToDoListComponent {
       
     }
 
-    fetchAll(): Observable<ToDoList[]>{
+    fetchAll(){
       //this.inputText = "hello";
-      return this.ToDOlistcurdservice.fetchAll();
+      
+      return this.ToDOlistcurdservice.fetchAll(this.userNamex);
     }
 
+
+
+
+     
     
     post(todolistItem: Partial<ToDoList>): void {
      // console.log(todolistItem);
@@ -84,6 +90,8 @@ export class ToDoListComponent {
         tap((_) => this.todolistVariable$ = this.fetchAll() )
       );
     }
+
+
     update(id: number, newItem :Partial<ToDoList>): void{
 
       const item = (<string><unknown>newItem).trim();
