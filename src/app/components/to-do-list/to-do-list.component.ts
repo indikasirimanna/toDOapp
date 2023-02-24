@@ -10,8 +10,13 @@ import { GoogleTranslationService } from './google.translation.service';
 
 import { Store } from '@ngrx/store';
 
+import { LoginComponent } from '../login/login.component';
+
+import { AuthService } from "src/app/services/auth.service";
+
 interface Appstate{
   message : string;
+
 }
 
 @Component({
@@ -24,6 +29,11 @@ interface Appstate{
 export class ToDoListComponent {
   message$ : Observable<string>;
 
+  userNamex = localStorage.getItem('userName'); 
+
+
+ 
+
   targetLanguage:string='';
   inputText:string='';
   transalatedText='';
@@ -34,6 +44,8 @@ export class ToDoListComponent {
 
   constructor(private ToDOlistcurdservice: ToDoListCrudService , private googleTranslationService: GoogleTranslationService ,private store: Store<Appstate>) {
     this.message$ = this.store.select('message')
+  
+
   }
   SinhalaMessage(){
     this.store.dispatch({type : 'SINHALA'})
@@ -43,6 +55,7 @@ export class ToDoListComponent {
   }
 
   translate(value?:string){
+    
     let model={
       "q": value,
       "target": "si"

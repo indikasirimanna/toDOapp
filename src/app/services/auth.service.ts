@@ -12,7 +12,7 @@ import { ErrorHandlerService } from "./error-handler.service";
   providedIn: "root",
 })
 export class AuthService {
-  private url = "http://localhost:3306/auth";
+  private url = "http://epayslip.slpa.lk:3306/auth";
 
   isUserLoggedIn$ = new BehaviorSubject<boolean>(false);
   userId: Pick<User, "id">;
@@ -61,4 +61,7 @@ export class AuthService {
         )
       );
   }
+  foo(value: string) {
+    console.log(this.userId.id);
+ }
 }

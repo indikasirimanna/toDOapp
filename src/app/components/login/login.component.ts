@@ -3,10 +3,15 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { AuthService } from "src/app/services/auth.service";
 
+import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+
+
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
+ 
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -31,5 +36,12 @@ export class LoginComponent implements OnInit {
     this.authService
       .login(this.loginForm.value.email, this.loginForm.value.password)
       .subscribe();
+      localStorage.setItem('userName', this.loginForm.value.email);
   }
+
+  loginx(){
+    return('test');
+  }
+  
+
 }
