@@ -21,10 +21,19 @@ import { ToDoListComponent } from './components/to-do-list/to-do-list.component'
 import { StoreModule } from '@ngrx/store';
 import { simpleReducer } from './simple.reducer';
 
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { LoginComponent } from './components/login/login.component';
+import { HomeComponent } from './components/home/home.component';
+
 @NgModule({
   declarations: [
     AppComponent,
-    ToDoListComponent
+    ToDoListComponent,
+    NavigationComponent,
+    SignupComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
