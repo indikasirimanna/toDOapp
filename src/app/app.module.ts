@@ -1,12 +1,13 @@
 
 
 import { AppRoutingModule } from './app-routing.module';
-
-import { FormsModule } from '@angular/forms';
-
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+
+
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'
+
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -47,6 +48,7 @@ import { HomeComponent } from './components/home/home.component';
     MatListModule,
     MatToolbarModule,
     FormsModule,
+    ReactiveFormsModule,
     StoreModule.forRoot({ message: simpleReducer })
 
   ],
