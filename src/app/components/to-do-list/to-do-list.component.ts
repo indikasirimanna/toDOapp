@@ -12,111 +12,94 @@ import { Store } from '@ngrx/store';
 
 import { LoginComponent } from '../login/login.component';
 
-import { AuthService } from "src/app/services/auth.service";
+import { AuthService } from 'src/app/services/auth.service';
 
-interface Appstate{
-  message : string;
-
+interface Appstate {
+  message: string;
 }
 
 @Component({
   selector: 'app-to-do-list',
   templateUrl: './to-do-list.component.html',
-  styleUrls: ['./to-do-list.component.scss']
+  styleUrls: ['./to-do-list.component.scss'],
 })
-
-
 export class ToDoListComponent {
-  message$ : Observable<string>;
+  message$: Observable<string>;
 
-  userNamex = localStorage.getItem('userName'); 
-  spacex=" - ";
+  userNamex = localStorage.getItem('userName');
+  spacex = ' - ';
 
- 
+  targetLanguage: string = '';
+  inputText: string = '';
+  transalatedText = '';
 
-  targetLanguage:string='';
-  inputText:string='';
-  transalatedText='';
+  todolistVariable$: Observable<ToDoList[]> | undefined;
 
-
-  todolistVariable$ : Observable<ToDoList[]> | undefined
-
-
-  constructor(private ToDOlistcurdservice: ToDoListCrudService , private googleTranslationService: GoogleTranslationService ,private store: Store<Appstate>) {
-    this.message$ = this.store.select('message')
-  
-
+  constructor(
+    private ToDOlistcurdservice: ToDoListCrudService,
+    private googleTranslationService: GoogleTranslationService,
+    private store: Store<Appstate>
+  ) {
+    this.message$ = this.store.select('message');
   }
-  SinhalaMessage(){
-    
-    this.store.dispatch({type : 'SINHALA'})
+  SinhalaMessage() {
+    this.store.dispatch({ type: 'SINHALA' });
   }
-  frenchMessage(){
-    this.store.dispatch({type : 'FRENCH'})
+  frenchMessage() {
+    this.store.dispatch({ type: 'FRENCH' });
   }
 
-  translate(value?:string){
-    
-    let model={
-      "q": value,
-      "target": "si"
+  translate(value?: string) {
+    let model = {
+      q: value,
+      target: 'si',
     };
-     this.googleTranslationService.translate(model).subscribe((response:any)=>{
-      this.transalatedText=response.data.translations[0].translatedText
-    })
+    this.googleTranslationService
+      .translate(model)
+      .subscribe((response: any) => {
+        this.transalatedText = response.data.translations[0].translatedText;
+      });
   }
 
-    ngOnInit (): void{
-      this.todolistVariable$ = this.fetchAll();
-      
-    }
+  ngOnInit(): void {
+    this.todolistVariable$ = this.fetchAll();
+  }
 
-    fetchAll(){
-      //this.inputText = "hello";
-      
-      return this.ToDOlistcurdservice.fetchAll(this.userNamex);
-    }
+  fetchAll() {
+    //this.inputText = "hello";
 
+    return this.ToDOlistcurdservice.fetchAll(this.userNamex);
+  }
 
+  post(todolistItem: Partial<ToDoList>): void {
+    // console.log(todolistItem);
+    const item = (<string>(<unknown>todolistItem)).trim();
+    if (!item) return;
+    this.todolistVariable$ = this.ToDOlistcurdservice.post({ item }).pipe(
+      tap((_) => (this.todolistVariable$ = this.fetchAll()))
+    );
+  }
 
+  update(id: number, newItem: Partial<ToDoList>): void {
+    const item = (<string>(<unknown>newItem)).trim();
+    if (!item) return;
 
-     
-    
-    post(todolistItem: Partial<ToDoList>): void {
-     // console.log(todolistItem);
-      const item = (<string><unknown>todolistItem).trim();
-      if(!item) return;      
-      this.todolistVariable$ = this.ToDOlistcurdservice.post({ item }).pipe(
-        tap((_) => this.todolistVariable$ = this.fetchAll() )
-      );
-    }
+    const newToDoList: ToDoList = {
+      id,
+      item,
+    };
+    this.todolistVariable$ = this.ToDOlistcurdservice.update(newToDoList).pipe(
+      tap((_) => (this.todolistVariable$ = this.fetchAll()))
+    );
+  }
 
+  deletex(id: number): void {
+    this.todolistVariable$ = this.ToDOlistcurdservice.delete(id).pipe(
+      tap((_) => (this.todolistVariable$ = this.fetchAll()))
+    );
+  }
 
-    update(id: number, newItem :Partial<ToDoList>): void{
-
-      const item = (<string><unknown>newItem).trim();
-      if(!item) return;
-
-      const newToDoList: ToDoList = {
-        id,
-        item
-      }
-      this.todolistVariable$ = this.ToDOlistcurdservice.update(newToDoList).pipe(
-        tap((_) => this.todolistVariable$ = this.fetchAll() )
-      );
-
-    }
-
-    deletex(id: number): void{
-      this.todolistVariable$ = this.ToDOlistcurdservice.delete(id).pipe(
-        tap((_) => this.todolistVariable$ = this.fetchAll() )
-      );
-    }
-
-    addTodo(title:string) {
-      console.log(title);
-    }
-
-
-
+  addTodo(title: string) {
+    console.log(title);
+  }
 }

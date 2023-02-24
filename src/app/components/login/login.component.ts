@@ -1,17 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { AuthService } from "src/app/services/auth.service";
+import { AuthService } from 'src/app/services/auth.service';
 
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
-
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.scss"],
- 
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -24,8 +22,8 @@ export class LoginComponent implements OnInit {
 
   createFormGroup(): FormGroup {
     return new FormGroup({
-      email: new FormControl("", [Validators.required, Validators.email]),
-      password: new FormControl("", [
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [
         Validators.required,
         Validators.minLength(7),
       ]),
@@ -36,12 +34,10 @@ export class LoginComponent implements OnInit {
     this.authService
       .login(this.loginForm.value.email, this.loginForm.value.password)
       .subscribe();
-      localStorage.setItem('userName', this.loginForm.value.email);
+    localStorage.setItem('userName', this.loginForm.value.email);
   }
 
-  loginx(){
-    return('test');
+  loginx() {
+    return 'test';
   }
-  
-
 }
