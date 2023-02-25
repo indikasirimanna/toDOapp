@@ -1,3 +1,13 @@
+<!--     The first block of code contains a header with the title "ToDo List" and the user's name. The title is centered, has a large font size, is bolded, and has a top margin. The user's name is displayed using the Angular interpolation syntax with the variable "userNamex".
+    The next block of code contains a Material Card component that wraps the rest of the application. The card has a width of 80% and is centered using the "margin: auto" style.
+    Inside the Material Card, there is a Material Card Header component that contains a button with a Material Icon "add" and is colored blue. This button triggers an Angular click event that calls the "post" function with the value of the to-do input field, a space, and the user's name.
+    Below the header, there is a Material Form Field component with a label "ToDo Items" and an input field. The input field has a reference variable "#todolistInput" and a placeholder text "Ex. Interview".
+    There are three hidden input fields with reference variables "#userName", "#space", and "#translate". The "#userName" input field is used to store the user's name for use in the "post" function. The "#space" input field is used to store a space character for use in the "post" function. The "#translate" input field appears to be unused.
+    There is an Angular Material List component that displays the to-do items. The items are generated using an Angular ngFor loop that iterates through the "todolistVariable$" observable array. Each item is displayed in a Material List Item component with the item text and two buttons. The first button is an edit button that triggers an Angular click event that calls the "update" function with the item's ID and the new value from the to-do input field. The second button is a delete button that triggers an Angular click event that calls the "deletex" function with the item's ID.
+    Inside the Material List Item, there is a span element that displays the item's index, the item text, and a hidden input field with a reference variable "#transalatedText". This input field appears to be unused.
+    Finally, there is a button with a Material Icon "g_translate" and is colored orange. This button triggers two Angular click events that call the "translate" and "SinhalaMessage" functions. It's not clear what these functions do, but they likely handle some sort of language translation functionality.
+25/02/2023 Indika Sirimanna-->
+
     <h1 style="
         text-align: center; 
         font-size: 40px; 

@@ -1,3 +1,8 @@
+/* This code defines an Angular component called NavigationComponent, which provides a navigation menu and logout functionality for authenticated users.
+The component depends on the AuthService and Router services, which are injected via the constructor. The AuthService provides a boolean Observable called isUserLoggedIn$, which emits true when the user is authenticated and false when the user is logged out. In the ngOnInit method, the component subscribes to this Observable and sets the isAuthenticated property accordingly.
+The component also defines a logout method that removes the token from the local storage, sets the isUserLoggedIn$ Observable to false, and navigates the user to the login page.
+Overall, this component provides a simple way to display a navigation menu and handle user authentication in an Angular application.
+25/02/2023 Indika Sirimanna*/
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 

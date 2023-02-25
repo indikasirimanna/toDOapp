@@ -1,3 +1,7 @@
+<!-- This code is creating a login form with two fields - email and password. 
+The form is using the 'formGroup' directive to create a form control and the 'formControlName' directive to assign a form control to the input fields. 
+The button has been set to be disabled if the form is not valid. The 'ngSubmit' directive is used to call the 'login()' function when the form is submitted. 
+25/02/2023 Indika Sirimanna-->
 <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
   <mat-form-field>
     <mat-label>Email</mat-label>

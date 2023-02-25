@@ -1,18 +1,21 @@
+/*  The import statements at the beginning of the code are importing necessary Angular modules, services and interfaces.
+    The class is declared with the @Component decorator, which contains metadata for the component, including the selector, template URL and style URL.
+    The class implements the ngOnInit() method that initializes the component after it is created.
+    The class has multiple methods that perform various actions on the to-do list, such as fetching, adding, updating and deleting items.
+    The class also has a translate() method that calls a Google Translation service to translate a given text to a target language.
+    The class has an observable message$ variable that is subscribed to the store to get a message for the user interface.
+    The class has a constructor that initializes various services that are used in the component.
+    The class also has a SinhalaMessage() method that dispatches an action to the store to change the message to Sinhala language.
+    Overall, the component manages the to-do list feature and provides methods for CRUD (Create, Read, Update, Delete) operations on the list. It also provides a translation functionality using a Google Translation service. 
+    25/02/2023 Indika Sirimanna*/
 import { Component } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { ToDoList } from 'src/app/models/ToDoList';
 import { ToDoListCrudService } from 'src/app/services/to-do-list-crud.service';
 
-import { HttpClient } from '@angular/common/http';
-
-import { environment } from 'src/environments/environment';
 import { GoogleTranslationService } from './google.translation.service';
 
 import { Store } from '@ngrx/store';
-
-import { LoginComponent } from '../login/login.component';
-
-import { AuthService } from 'src/app/services/auth.service';
 
 interface Appstate {
   message: string;
@@ -44,9 +47,6 @@ export class ToDoListComponent {
   }
   SinhalaMessage() {
     this.store.dispatch({ type: 'SINHALA' });
-  }
-  frenchMessage() {
-    this.store.dispatch({ type: 'FRENCH' });
   }
 
   translate(value?: string) {

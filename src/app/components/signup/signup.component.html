@@ -1,4 +1,7 @@
+<!--  This code defines an HTML form element that binds to the signupForm property of the component using the formGroup directive. It also binds the signup() method to the ngSubmit event, which is triggered when the user submits the form. The novalidate attribute is used to disable HTML5 form validation.-->
 <form [formGroup]="signupForm" (ngSubmit)="signup()" novalidate>
+  <!-- This code defines three form controls using the Angular Material mat-form-field and matInput components. Each input element is bound to a corresponding form control using the formControlName directive. The mat-label component displays a label for each form control.
+    Handling form submission: -->
     <mat-form-field>
       <mat-label>First name</mat-label>
       <input matInput placeholder="Ex. Indika" formControlName="name" />
@@ -16,6 +19,8 @@
         formControlName="password"
       />
     </mat-form-field>
+    <!-- This code defines a button element that triggers the form submission when clicked. The disabled attribute is bound to the signupForm.valid property of the component, which is true when all form controls are valid. This ensures that the user cannot submit the form until it is valid.
+    Overall, the code is well-structured and follows Angular best practices. It effectively handles user input validation and submits the sign-up data to the server when the user clicks the submit button. The use of Angular Material components also provides a consistent and visually appealing user interface. -->
     <button
       color="accent"
       [disabled]="!signupForm.valid"
