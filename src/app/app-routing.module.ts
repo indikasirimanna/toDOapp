@@ -5,6 +5,7 @@ The Routes array contains the routing information for different paths. Here, the
     The "posts" path is mapped to the ToDoListComponent, with the AuthGuard applied.
     The "login" path is mapped to the LoginComponent.
     The "signup" path is mapped to the SignupComponent.
+    The "admin" path is mapped to the AdminComponent.
 The ** route is a wildcard route that redirects to the default path if the requested route is not found.
 Finally, the AppRoutingModule module is defined to import the RouterModule and export it for use in the main AppModule. 
 25/02/2023 Indika Sirimanna*/

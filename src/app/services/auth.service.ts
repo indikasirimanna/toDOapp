@@ -29,6 +29,7 @@ export class AuthService {
   isUserLoggedIn$ = new BehaviorSubject<boolean>(false);
   userId: Pick<User, 'id'>;
 
+
   httpOptions: { headers: HttpHeaders } = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -37,7 +38,7 @@ export class AuthService {
     private http: HttpClient,
     private errorHandlerService: ErrorHandlerService,
     private router: Router
-  ) {}
+  ) { }
 
   signup(user: Omit<User, 'id'>): Observable<User> {
     return this.http
@@ -63,11 +64,14 @@ export class AuthService {
           this.userId = tokenObject.userId;
           localStorage.setItem('token', tokenObject.token);
           this.isUserLoggedIn$.next(true);
-          if (email.email == 'admin@admin.com') {
-            this.router.navigate(['signup']);
-          } else {
-            this.router.navigate(['posts']);
-          }
+
+
+          // if (email.email.includes('admin@admin.com')) {
+          //   this.router.navigate(['admin']);
+          // } else {
+          // this.router.navigate(['posts']);
+          this.router.navigate(['posts']);
+          //  }
         }),
         catchError(
           this.errorHandlerService.handleError<{

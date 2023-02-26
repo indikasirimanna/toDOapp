@@ -1,21 +1,22 @@
-/*  The import statements at the beginning of the code are importing necessary Angular modules, services and interfaces.
-    The class is declared with the @Component decorator, which contains metadata for the component, including the selector, template URL and style URL.
-    The class implements the ngOnInit() method that initializes the component after it is created.
-    The class has multiple methods that perform various actions on the to-do list, such as fetching, adding, updating and deleting items.
-    The class also has a translate() method that calls a Google Translation service to translate a given text to a target language.
-    The class has an observable message$ variable that is subscribed to the store to get a message for the user interface.
-    The class has a constructor that initializes various services that are used in the component.
-    The class also has a SinhalaMessage() method that dispatches an action to the store to change the message to Sinhala language.
-    Overall, the component manages the to-do list feature and provides methods for CRUD (Create, Read, Update, Delete) operations on the list. It also provides a translation functionality using a Google Translation service. 
-    25/02/2023 Indika Sirimanna*/
+/*The import statements at the beginning of the code are importing necessary Angular modules, services and interfaces.
+  Below code is an Angular component that manages a to-do list using the ToDoListCrudService service to communicate with a backend API, and the GoogleTranslationService to translate text.
+  The component has several properties and methods that are used to manage the state of the to-do list, handle user input, and perform translations. Some notable properties and methods are:
+    todolistVariable$: an Observable that holds an array of ToDoList items retrieved from the backend API.
+    fetchAll(): a method that fetches all to-do list items from the backend API and returns an Observable.
+    post(), update(), delete(): methods that use the ToDoListCrudService to create, update, or delete to-do list items in the backend API, and update the todolistVariable$ Observable.
+    translate(): a method that uses the GoogleTranslationService to translate text to a target language and updates the transalatedText property.
+    addTodo(): a method that logs a title parameter to the console, but is not currently used in the component.
+  The component also has a ngOnInit() method that sets the todolistVariable$ property to the result of fetchAll().
+  Overall, this component provides the functionality to manage a to-do list and perform translations using the provided services, but it's difficult to fully understand its purpose without additional context about the application it's used in.
+  26/02/2023 Indika Sirimanna*/
 import { Component } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { filter, Observable, tap } from 'rxjs';
 import { ToDoList } from 'src/app/models/ToDoList';
 import { ToDoListCrudService } from 'src/app/services/to-do-list-crud.service';
-
 import { GoogleTranslationService } from './google.translation.service';
-
 import { Store } from '@ngrx/store';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 
 interface Appstate {
   message: string;
@@ -25,12 +26,18 @@ interface Appstate {
   selector: 'app-to-do-list',
   templateUrl: './to-do-list.component.html',
   styleUrls: ['./to-do-list.component.scss'],
+
+
 })
+
+
 export class ToDoListComponent {
   message$: Observable<string>;
 
-  userNamex = localStorage.getItem('userName');
+  result = localStorage.getItem('userName');
+  userNamex = this.result.substring(0, this.result.indexOf("@"));
   spacex = ' - ';
+  clickTranslate = ' Click Translate ';
 
   targetLanguage: string = '';
   inputText: string = '';
@@ -63,12 +70,13 @@ export class ToDoListComponent {
 
   ngOnInit(): void {
     this.todolistVariable$ = this.fetchAll();
+
   }
 
   fetchAll() {
     //this.inputText = "hello";
 
-    return this.ToDOlistcurdservice.fetchAll(this.userNamex);
+    return this.ToDOlistcurdservice.fetchAll();
   }
 
   post(todolistItem: Partial<ToDoList>): void {
@@ -102,4 +110,6 @@ export class ToDoListComponent {
   addTodo(title: string) {
     console.log(title);
   }
+
+
 }
